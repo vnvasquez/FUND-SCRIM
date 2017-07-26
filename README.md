@@ -2,7 +2,9 @@
 
 # Fund.jl
 
-This is an implementation of FUND in Julia. Everything is experimental at this point and this is not the official FUND code. We have not finished to cross check this code with the official C# implementation, so it might still have bugs. Please do not use this code for any publication at this point. This code will also migrate to a different github repository once it is finalized.
+This iteration of FUND in Julia has been cloned for the purpose of implementing a Sustainable Climate Risk Management (SCRIM) linkage project. It will establish a systematic approach to plural rationalities that uses FUND and Rhodium - a multi-objective robust decision-making tool - to generate a series of plausible policy scenarios with pareto satisfycing surfaces.
+
+Please note: All text featured below has been included from the original repository for explanatory purposes.
 
 ## Requirements
 
