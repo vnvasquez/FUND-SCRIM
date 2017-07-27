@@ -105,8 +105,29 @@ setparameter(INDIA-PRO,:emissions, :co2red, zeros(1051,16))
 # Consumption
 ###########################
 
+# Because in socioeconomic component,
+# v.consumption[t, r] = v.income[t, r] * 1000000000.0 * (1.0 - p.savingsrate)
+# We handle this as an UNCERTAINTY using p.savingsrate
+setparameter(INDIA-PRO,:socioeconomic, :savingsrate, zeros(1051,16))
 
+###########################
+# Agriculture
+###########################
 
+# Because in the impactagriculture component,
+# v.agrate[t, r] = p.agrbm[r] * (dtemp / 0.04)^p.agnl + (1.0 - 1.0 / p.agtime[r]) * v.agrate[t - 1, r]
+# v.aglevel[t, r] = p.aglparl[r] * p.temp[t, r] + p.aglparq[r] * p.temp[t, r]^2.0
+# v.agco2[t, r] = p.agcbm[r] / log(2.0) * log(p.acco2[t - 1] / p.co2pre)
+# We largely handle this using the following UNCERTAINTIES:
+# rate
+setparameter(INDIA-PRO,:impactagriculture, :agrbm, zeros(1051,16))
+setparameter(INDIA-PRO,:impactagriculture, :agnl, zeros(1051,16))
+setparameter(INDIA-PRO,:impactagriculture, :agtime, zeros(1051,16))
+# level
+setparameter(INDIA-PRO,:impactagriculture, :aglparl, zeros(1051,16))
+setparameter(INDIA-PRO,:impactagriculture, :aglparq, zeros(1051,16))
+# fertilization
+setparameter(INDIA-PRO,:impactagriculture, :agcbm, zeros(1051,16))
 
 # Run
 run(INDIA-PRO)
