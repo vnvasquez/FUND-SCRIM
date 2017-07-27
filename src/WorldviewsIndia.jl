@@ -56,8 +56,57 @@ setparameter(INDIA-PRO,:emissions, :globco2, zeros(1051,16))
 setparameter(INDIA-PRO,:impactsealevelrise, :pc, zeros(1051,16))
 # OR, IF WANT UNCERTAINTY EXAMINED:
 setparameter(INDIA-PRO,:impactsealevelrise, :slrprpt, zeros(1051,16))
-# And because in sealevelrise component, v.imigrate[r1, r2] = p.migrate[r2, r1] / immsumm 
+# And because in sealevelrise component, v.imigrate[r1, r2] = p.migrate[r2, r1] / immsumm
 setparameter(INDIA-PRO,:impactsealevelrise, :migrate, zeros(1051,16))
+
+###########################
+# TEMPERATURE
+###########################
+
+# Because in climateregional component, v.regstmp[t, r] = p.inputtemp[t] * p.bregstmp[r] + p.scentemp[t, r]
+setparameter(INDIA-PRO,:climateregional, :inputtemp, zeros(1051,16))
+# AND (possibly useful as an UNCERTAINTY)
+setparameter(INDIA-PRO,:climateregional, :bregstmp, zeros(1051,16))
+# AND
+setparameter(INDIA-PRO,:climateregional, :scentemp, zeros(1051,16))
+
+###########################
+# VULNERABLITY
+###########################
+
+# Because in socioeconomic component,
+# v.ygrowth[t, r] = (1 + 0.01 * p.pgrowth[t - 1, r]) * (1 + 0.01 * p.ypcgrowth[t - 1, r]) - 1
+# treat all the following as UNCERTAINTIES
+setparameter(INDIA-PRO,:socioeconomic, :pgrowth, zeros(1051,16))
+# AND
+setparameter(INDIA-PRO,:socioeconomic, :ypcgrowth, zeros(1051,16))
+
+###########################
+# Historical Responsibility
+###########################
+
+# Because in emissions component,
+# v.co2red[t, r] = p.currtax[t, r] * v.emission[t, r] * v.know[t - 1, r] * v.globknow[t - 1] / 2 / v.taxpar[t, r] / p.income[t, r] / 1000
+# Direct means of addressing might be via setting p.currtax
+setparameter(INDIA-PRO,:emissions, :currtax, zeros(1051,16))
+# Alternatively, indirect means of addressing might be adjusting code to create parameter that
+# allows v.co2red to be a function of emissions in a given time/region
+# This requires a different setup than the below, obviously bc right now co2red is a variable.
+setparameter(INDIA-PRO,:emissions, :co2red, zeros(1051,16))
+# NB in all cases this is only designed for pre-2010
+
+###########################
+# Future Responsibility
+###########################
+
+# See above; only difference from Historical is relevant dates (post 2010 vs pre 2010)
+
+###########################
+# Consumption
+###########################
+
+
+
 
 # Run
 run(INDIA-PRO)
