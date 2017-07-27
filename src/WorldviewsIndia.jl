@@ -45,6 +45,13 @@ setparameter(INDIA-PRO,:emissions, :forestemm, zeros(1051,16))
 # And in climateco2cycle component, v.globc[t] = p.mco2[t] + v.TerrestrialCO2[t]
 setparameter(INDIA-PRO,:emissions, :globco2, zeros(1051,16))
 
+# Because in socioeconomic component,
+# v.ygrowth[t, r] = (1 + 0.01 * p.pgrowth[t - 1, r]) * (1 + 0.01 * p.ypcgrowth[t - 1, r]) - 1
+# could (in addition to/instead of VULNERABLITY application)
+# This would be for extreme idealogue enviro groups who don't care about humans (we
+# would also set low VSL in this instance)
+setparameter(INDIA-PRO,:socioeconomic, :pgrowth, zeros(1051,16))
+
 ###########################
 # ADAPTATION
 ###########################
@@ -128,6 +135,28 @@ setparameter(INDIA-PRO,:impactagriculture, :aglparl, zeros(1051,16))
 setparameter(INDIA-PRO,:impactagriculture, :aglparq, zeros(1051,16))
 # fertilization
 setparameter(INDIA-PRO,:impactagriculture, :agcbm, zeros(1051,16))
+
+###########################
+# Biodiversity
+###########################
+
+# Because in the biodiversity component,
+# v.nospecies[t] = max(p.nospecbase / 100, v.nospecies[t - 1] * (1.0 - p.bioloss - p.biosens * dt * dt / p.dbsta / p.dbsta))
+# We can address nospecies via UNCERTAINTIES of bioloss and biosens
+# change the mean/parameters within the distribution, change the shape of the distribution (eg assuming abnormally large probability of extreme events),
+# or change the variance
+setparameter(INDIA-PRO,:biodiversity, :bioloss, zeros(1051,16))
+setparameter(INDIA-PRO,:biodiversity, :biosens, zeros(1051,16))
+
+###########################
+# Human health
+###########################
+
+# Because no way of messing with probability of death, can tinker on basis of vsl?
+# And in the vslvmorb component, v.vsl[t, r] = p.vslbm * (ypc / p.vslypc0)^p.vslel
+# We can treat elasticity associated with vsl as an UNCERTAINTY
+setparameter(INDIA-PRO,:vslvmorb, :vslel, zeros(1051,16))
+
 
 # Run
 run(INDIA-PRO)
