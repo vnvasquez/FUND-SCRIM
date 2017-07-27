@@ -84,6 +84,7 @@ function run_timestep(s::impactsealevelrise, t::Int)
         end
     else
         # slr in m/year
+        # "delta of sea level"
         ds = p.sea[t] - p.sea[t - 1]
 
         for r in d.regions
