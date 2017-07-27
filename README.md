@@ -1,6 +1,6 @@
 [![Build Status](https://travis-ci.org/davidanthoff/fund.jl.svg?branch=master)](https://travis-ci.org/davidanthoff/fund.jl)
 
-# Fund.jl
+# FUND-SCRIM
 
 This iteration of FUND in Julia has been cloned for the purpose of implementing a Sustainable Climate Risk Management (SCRIM) linkage project. It will establish a systematic approach to plural rationalities that uses FUND and Rhodium - a multi-objective robust decision-making tool - to generate a series of plausible policy scenarios with pareto satisfycing surfaces.
 
@@ -28,8 +28,4 @@ Many of these requirements are regularily updated. To make sure you have the lat
 
 ````jl
 Pkg.update()
-````
-
-## Acknowledgements
-
-This work is partially supported by the National Science Foundation through the Network for Sustainable Climate Risk Management ([SCRiM](http://scrimhub.org/)) under NSF cooperative agreement GEO-1240507.
+```
